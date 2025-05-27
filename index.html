@@ -1,0 +1,708 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FashionFiesta | Trendy Clothing Store</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #ff6b6b;
+      --secondary: #794afa;
+      --dark: #1e1e1e;
+      --light: #f8f9fa;
+      --success: #51cf66;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      background-color: var(--light);
+    }
+    
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    
+    .navbar.scrolled {
+      padding: 15px 20px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--dark);
+      text-decoration: none;
+    }
+    
+    .logo span {
+      color: var(--primary);
+    }
+    
+    .menu {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+    
+    .menu li a {
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      padding: 5px 0;
+      transition: all 0.3s ease;
+    }
+    
+    .menu li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+    
+    .menu li a:hover::after {
+      width: 100%;
+    }
+    
+    .nav-icons {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .nav-icons i {
+      font-size: 1.3rem;
+      color: var(--dark);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-icons i:hover {
+      color: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      padding: 0 50px;
+      margin-top: 80px;
+      position: relative;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+    }
+    
+    .hero-content {
+      max-width: 600px;
+      color: white;
+      z-index: 1;
+    }
+    
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    
+    /* Categories */
+    .categories {
+      padding: 80px 50px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--dark);
+      margin-bottom: 15px;
+    }
+    
+    .section-title p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+    
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    
+    .category-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+    
+    .category-img {
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .category-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.5s ease;
+    }
+    
+    .category-card:hover .category-img img {
+      transform: scale(1.1);
+    }
+    
+    .category-info {
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .category-info h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+    
+    .category-info a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+    }
+    
+    .category-info a i {
+      margin-left: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .category-info a:hover i {
+      transform: translateX(5px);
+    }
+    
+    /* Featured Products */
+    .featured {
+      padding: 80px 50px;
+      background: #f1f3f5;
+    }
+    
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .product-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+    
+    .product-img {
+      height: 250px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.5s ease;
+    }
+    
+    .product-card:hover .product-img img {
+      transform: scale(1.1);
+    }
+    
+    .product-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--primary);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .product-info {
+      padding: 20px;
+    }
+    
+    .product-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+    
+    .product-info .price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    
+    .product-info .price span {
+      font-size: 1rem;
+      color: #666;
+      text-decoration: line-through;
+      margin-left: 10px;
+    }
+    
+    .product-info .stars {
+      color: #ffc107;
+      margin-bottom: 15px;
+    }
+    
+    .product-info .btn {
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+    }
+    
+    /* Newsletter */
+    .newsletter {
+      padding: 80px 50px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-align: center;
+    }
+    
+    .newsletter-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .newsletter h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    
+    .newsletter p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+    
+    .newsletter-form {
+      display: flex;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .newsletter-form input {
+      flex: 1;
+      padding: 15px;
+      border: none;
+      border-radius: 30px 0 0 30px;
+      font-size: 1rem;
+    }
+    
+    .newsletter-form button {
+      padding: 15px 30px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 0 30px 30px 0;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .newsletter-form button:hover {
+      background: #ff5252;
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 50px;
+      text-align: center;
+    }
+    
+    .footer-logo {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    
+    .footer-logo span {
+      color: var(--primary);
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+    
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+    
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .social-icons a {
+      color: white;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icons a:hover {
+      color: var(--primary);
+      transform: translateY(-5px);
+    }
+    
+    .copyright {
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { StrictMode, useState, useEffect } = React;
+
+    function Navbar() {
+      const [scrolled, setScrolled] = useState(false);
+
+      useEffect(() => {
+        const handleScroll = () => {
+          setScrolled(window.scrollY > 50);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+
+      return (
+        <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
+          <div className="nav-container">
+            <a href="#" className="logo">Fashion<span>Fiesta</span></a>
+            <ul className="menu">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Shop</a></li>
+              <li><a href="#">Categories</a></li>
+              <li><a href="#">New Arrivals</a></li>
+              <li><a href="#">Sale</a></li>
+            </ul>
+            <div className="nav-icons">
+              <i className="fas fa-search"></i>
+              <i className="fas fa-user"></i>
+              <i className="fas fa-shopping-bag"></i>
+            </div>
+          </div>
+        </nav>
+      );
+    }
+
+    function Hero() {
+      return (
+        <section className="hero">
+          <div className="hero-content">
+            <h1>Summer Collection 2023</h1>
+            <p>Discover our latest trendy outfits at unbeatable prices. Limited stock available!</p>
+            <a href="#" className="btn">Shop Now</a>
+          </div>
+        </section>
+      );
+    }
+
+    function Categories() {
+      const categories = [
+        {
+          id: 1,
+          name: "Men's Fashion",
+          image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80"
+        },
+        {
+          id: 2,
+          name: "Women's Fashion",
+          image: "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+        },
+        {
+          id: 3,
+          name: "Kids Collection",
+          image: "https://images.unsplash.com/photo-1604917018033-26d0a0286b8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+        },
+        {
+          id: 4,
+          name: "Accessories",
+          image: "https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+        }
+      ];
+
+      return (
+        <section className="categories">
+          <div className="section-title">
+            <h2>Shop by Category</h2>
+            <p>Browse our wide range of clothing categories</p>
+          </div>
+          <div className="category-grid">
+            {categories.map(category => (
+              <div className="category-card" key={category.id}>
+                <div className="category-img">
+                  <img src={category.image} alt={category.name} />
+                </div>
+                <div className="category-info">
+                  <h3>{category.name}</h3>
+                  <a href="#">Shop Now <i className="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    function FeaturedProducts() {
+      const products = [
+        {
+          id: 1,
+          name: "Striped Cotton T-Shirt",
+          price: 24.99,
+          oldPrice: 34.99,
+          rating: 4,
+          image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80",
+          badge: "Sale"
+        },
+        {
+          id: 2,
+          name: "Denim Jacket",
+          price: 59.99,
+          oldPrice: 79.99,
+          rating: 5,
+          image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80",
+          badge: "Popular"
+        },
+        {
+          id: 3,
+          name: "Floral Summer Dress",
+          price: 39.99,
+          oldPrice: 49.99,
+          rating: 4,
+          image: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=734&q=80",
+          badge: "New"
+        },
+        {
+          id: 4,
+          name: "Casual Sneakers",
+          price: 45.99,
+          oldPrice: 55.99,
+          rating: 5,
+          image: "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=765&q=80",
+          badge: "Trending"
+        }
+      ];
+
+      return (
+        <section className="featured">
+          <div className="section-title">
+            <h2>Featured Products</h2>
+            <p>Our best selling products this season</p>
+          </div>
+          <div className="product-grid">
+            {products.map(product => (
+              <div className="product-card" key={product.id}>
+                <div className="product-img">
+                  <img src={product.image} alt={product.name} />
+                  <span className="product-badge">{product.badge}</span>
+                </div>
+                <div className="product-info">
+                  <h3>{product.name}</h3>
+                  <div className="stars">
+                    {[...Array(5)].map((_, i) => (
+                      <i 
+                        key={i} 
+                        className={`fas fa-star ${i < product.rating ? '' : 'far fa-star'}`}
+                      ></i>
+                    ))}
+                  </div>
+                  <div className="price">
+                    ${product.price} <span>${product.oldPrice}</span>
+                  </div>
+                  <a href="#" className="btn">Add to Cart</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    function Newsletter() {
+      const [email, setEmail] = useState('');
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        alert(`Thank you for subscribing with ${email}!`);
+        setEmail('');
+      };
+
+      return (
+        <section className="newsletter">
+          <div className="newsletter-container">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Get the latest updates on new products and upcoming sales</p>
+            <form className="newsletter-form" onSubmit={handleSubmit}>
+              <input 
+                type="email" 
+                placeholder="Your email address" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required 
+              />
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
+        </section>
+      );
+    }
+
+    function Footer() {
+      return (
+        <footer>
+          <div className="footer-logo">Fashion<span>Fiesta</span></div>
+          <div className="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+            <a href="#">Shipping Policy</a>
+            <a href="#">Returns & Exchanges</a>
+            <a href="#">Privacy Policy</a>
+          </div>
+          <div className="social-icons">
+            <a href="#"><i className="fab fa-facebook-f"></i></a>
+            <a href="#"><i className="fab fa-twitter"></i></a>
+            <a href="#"><i className="fab fa-instagram"></i></a>
+            <a href="#"><i className="fab fa-pinterest-p"></i></a>
+          </div>
+          <div className="copyright">
+            &copy; {new Date().getFullYear()} FashionFiesta. All rights reserved.
+          </div>
+        </footer>
+      );
+    }
+
+    function App() {
+      return (
+        <div>
+          <Navbar />
+          <Hero />
+          <Categories />
+          <FeaturedProducts />
+          <Newsletter />
+          <Footer />
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(
+      <StrictMode>
+        <App />
+      </StrictMode>
+    );
+  </script>
+</body>
+</html>
